@@ -5,7 +5,7 @@
 @media(min-width:800px){.right{right:22px;bottom:22px}}
 </style></head><body>
 <canvas id="game"></canvas>
-<div id="menu"><div id="card"><h1>ELITE <span style="color:#e65b4d">STRIKE</span></h1><small>COMBATE TÁTICO • BUILD 0.1 • ULTRA LEVE</small>
+<div id="menu"><div id="card"><h1>ELITE <span style="color:#e65b4d">STRIKE</span></h1><small>COMBATE TÁTICO • BUILD 0.5 • VILA DE COMBATE • ULTRA LEVE</small>
 <p>Escolha sua equipe e entre na arena de combate.</p><div class="choices"><button id="batt" class="active">🪖 BATALHÃO</button><button id="terr">☠️ TERRORISTAS</button></div>
 <p style="margin-bottom:5px">Classe:</p><div class="choices"><button class="active" data-class="Assalto">ASSALTO</button><button data-class="Sniper">SNIPER</button><button data-class="Suporte">SUPORTE</button><button data-class="Médico">MÉDICO</button></div>
 <button class="start" id="start">INICIAR PARTIDA</button><div id="result">Objetivo: eliminar a equipe adversária. Roda em Canvas 2D sem bibliotecas externas.</div></div></div>
@@ -21,8 +21,24 @@ $('batt').onclick=()=>{team='BATALHÃO';$('batt').classList.add('active');$('ter
 document.querySelectorAll('[data-class]').forEach(b=>b.onclick=()=>{klass=b.dataset.class;document.querySelectorAll('[data-class]').forEach(x=>x.classList.toggle('active',x===b))});
 $('start').onclick=()=>{started=true;$('menu').style.display='none';init()};
 function init(){kills=0;weaponIndex=1;magazines={};weapons.forEach((w,i)=>magazines[i]=w.mag);ammo=magazines[weaponIndex];abilityCd=0;dashT=0;player={x:W/2,y:H/2,hp:100,r:11,angle:0,speed:klass==='Sniper'?135:klass==='Médico'?165:155,team};bots=[];bullets=[];walls=[];
-for(let i=0;i<14;i++){let x=80+Math.random()*(W-160),y=70+Math.random()*(H-140),w=35+Math.random()*65,h=25+Math.random()*50;walls.push({x,y,w,h})}
+createMap()
 for(let i=0;i<6;i++)spawnBot(i);$('teamlabel').textContent=team;$('hp').textContent=100;$('kills').textContent=0;$('enemies').textContent=bots.filter(b=>b.team!==team).length;refreshWeapon()}
+function createMap(){
+ walls=[];
+ // Vila de Combate: ruas largas em cruz, quarteirões e coberturas fixas.
+ const blocks=[
+  [.045,.10,.19,.19],[.405,.07,.19,.17],[.765,.10,.19,.19],
+  [.035,.405,.17,.18],[.795,.405,.17,.18],
+  [.045,.71,.19,.19],[.405,.77,.19,.16],[.765,.71,.19,.19]
+ ];
+ for(const [x,y,w,h] of blocks)walls.push({x:x*W,y:y*H,w:w*W,h:h*H,kind:'building'});
+ const cover=[
+  [.275,.31,.105,.026],[.62,.31,.105,.026],
+  [.275,.655,.105,.026],[.62,.655,.105,.026],
+  [.225,.48,.045,.035],[.73,.48,.045,.035]
+ ];
+ for(const [x,y,w,h] of cover)walls.push({x:x*W,y:y*H,w:Math.max(18,w*W),h:Math.max(12,h*H),kind:'cover'});
+}
 function spawnBot(i=0){let opposing=team==='BATALHÃO'?'TERRORISTAS':'BATALHÃO';let t=i%2===0?opposing:team;let edge=Math.random()<.5?Math.random()*W:(Math.random()<.5?0:W);let x=edge,y=Math.random()*H;for(let tries=0;tries<12&&collides(x,y,12);tries++){x=20+Math.random()*Math.max(1,W-40);y=20+Math.random()*Math.max(1,H-40)}bots.push({x,y,hp:60,r:10,team:t,angle:0,cd:Math.random()*1.5,speed:55+Math.random()*35})}
 function collides(x,y,r){return walls.some(a=>x+r>a.x&&x-r<a.x+a.w&&y+r>a.y&&y-r<a.y+a.h)}
 function clearShot(a,b){let dx=b.x-a.x,dy=b.y-a.y,steps=Math.ceil(Math.hypot(dx,dy)/12);for(let i=1;i<steps;i++){let x=a.x+dx*i/steps,y=a.y+dy*i/steps;if(walls.some(w=>x>w.x&&x<w.x+w.w&&y>w.y&&y<w.y+w.h))return false}return true}
@@ -41,9 +57,30 @@ let fireDelay=weapons[weaponIndex].delay;if(fireHeld&&last>fireDelay){shoot(play
 for(let b of bots){if(b.hp<=0)continue;let foe=player.team!==b.team?player:bots.find(x=>x.hp>0&&x.team!==b.team);if(!foe)continue;let vx=foe.x-b.x,vy=foe.y-b.y,d=Math.hypot(vx,vy)||1;b.angle=Math.atan2(vy,vx);if(d>150){let mx=vx/d*b.speed*dt,my=vy/d*b.speed*dt,beforeX=b.x,beforeY=b.y;move(b,mx,my);if(Math.hypot(b.x-beforeX,b.y-beforeY)<Math.hypot(mx,my)*.35){let side=(b.x+b.y)%2?1:-1;move(b,-my/d*side*b.speed*dt*1.25,mx/d*side*b.speed*dt*1.25)}}b.cd-=dt;if(d<360&&b.cd<=0&&clearShot(b,foe)){shoot(b,foe);b.cd=1.15+Math.random()*1.3}else if(d<360&&b.cd<=0){b.cd=.25}}
 for(let q of bullets){q.x+=q.vx*dt;q.y+=q.vy*dt;q.life-=dt;if(collides(q.x,q.y,2))q.life=0;if(q.team!==player.team&&Math.hypot(q.x-player.x,q.y-player.y)<player.r+3){player.hp-=q.damage;q.life=0;$('hp').textContent=Math.max(0,Math.round(player.hp));if(player.hp<=0)end('VOCÊ FOI ELIMINADO')}for(let b of bots){if(b.hp>0&&q.team!==b.team&&Math.hypot(q.x-b.x,q.y-b.y)<b.r+3){b.hp-=q.damage;q.life=0;if(b.hp<=0&&b.team!==team){kills++;$('kills').textContent=kills}}}}
 bullets=bullets.filter(q=>q.life>0&&q.x>=0&&q.x<=W&&q.y>=0&&q.y<=H);bots=bots.filter(b=>b.hp>0);$('enemies').textContent=bots.filter(b=>b.team!==team).length;if(!bots.some(b=>b.team!==team))end('VITÓRIA! EQUIPE ADVERSÁRIA ELIMINADA')}
-function draw(){ctx.fillStyle='#202920';ctx.fillRect(0,0,W,H);ctx.strokeStyle='#293329';ctx.lineWidth=1;for(let x=0;x<W;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=48){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
-for(let a of walls){ctx.fillStyle='#42483d';ctx.fillRect(a.x,a.y,a.w,a.h);ctx.fillStyle='#626a59';ctx.fillRect(a.x,a.y,a.w,5);ctx.strokeStyle='#181e17';ctx.strokeRect(a.x,a.y,a.w,a.h)}
-for(let b of bots)if(b.hp>0){ctx.fillStyle=b.team===team?'#6b9e68':'#b94d43';ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#141914';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x,b.y);ctx.lineTo(b.x+Math.cos(b.angle)*15,b.y+Math.sin(b.angle)*15);ctx.stroke()}
+function draw(){
+ ctx.fillStyle='#252b25';ctx.fillRect(0,0,W,H);
+ // Calçadas e ruas principais da Vila de Combate.
+ ctx.fillStyle='#3b4039';ctx.fillRect(0,H*.365,W,H*.27);ctx.fillRect(W*.365,0,W*.27,H);
+ ctx.fillStyle='#55594f';ctx.fillRect(0,H*.365,W,H*.012);ctx.fillRect(0,H*.623,W,H*.012);ctx.fillRect(W*.365,0,W*.012,H);ctx.fillRect(W*.623,0,W*.012,H);
+ ctx.fillStyle='#b7ad7a';for(let x=12;x<W;x+=58){ctx.fillRect(x,H*.493,27,2);ctx.fillRect(x,H*.506,27,2)}for(let y=12;y<H;y+=58){ctx.fillRect(W*.493,y,2,27);ctx.fillRect(W*.506,y,2,27)}
+ ctx.strokeStyle='#30382f';ctx.lineWidth=1;for(let x=0;x<W;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=48){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+ for(let a of walls){
+  if(a.kind==='building'){
+   ctx.fillStyle='#111711';ctx.fillRect(a.x+4,a.y+5,a.w,a.h);
+   ctx.fillStyle='#55594d';ctx.fillRect(a.x,a.y,a.w,a.h);
+   ctx.fillStyle='#747767';ctx.fillRect(a.x+3,a.y+3,a.w-6,Math.max(5,a.h*.12));
+   ctx.fillStyle='#343b32';ctx.fillRect(a.x+7,a.y+a.h*.28,Math.max(5,a.w*.18),Math.max(5,a.h*.12));
+   ctx.fillRect(a.x+a.w*.68,a.y+a.h*.28,Math.max(5,a.w*.18),Math.max(5,a.h*.12));
+   ctx.fillStyle='#292f28';ctx.fillRect(a.x+a.w*.42,a.y+a.h*.68,Math.max(7,a.w*.16),Math.max(5,a.h*.25));
+   ctx.strokeStyle='#171d17';ctx.lineWidth=2;ctx.strokeRect(a.x,a.y,a.w,a.h);
+  }else{
+   ctx.fillStyle='#151a15';ctx.fillRect(a.x+2,a.y+3,a.w,a.h);
+   ctx.fillStyle='#777b68';ctx.fillRect(a.x,a.y,a.w,a.h);
+   ctx.fillStyle='#a0a18a';ctx.fillRect(a.x+2,a.y+2,a.w-4,3);
+   ctx.strokeStyle='#272d26';ctx.lineWidth=1;ctx.strokeRect(a.x,a.y,a.w,a.h);
+  }
+ }
+ for(let b of bots)if(b.hp>0){ctx.fillStyle=b.team===team?'#6b9e68':'#b94d43';ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#141914';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x,b.y);ctx.lineTo(b.x+Math.cos(b.angle)*15,b.y+Math.sin(b.angle)*15);ctx.stroke()}
 for(let q of bullets){ctx.fillStyle=q.team===team?'#f4d56b':'#e88771';ctx.beginPath();ctx.arc(q.x,q.y,3,0,Math.PI*2);ctx.fill()}
 if(player){ctx.fillStyle=team==='BATALHÃO'?'#86b87e':'#d2a17c';ctx.beginPath();ctx.arc(player.x,player.y,player.r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#e8e9dd';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(player.x,player.y);ctx.lineTo(player.x+Math.cos(player.angle)*21,player.y+Math.sin(player.angle)*21);ctx.stroke()}}
 function end(msg){started=false;$('menu').style.display='grid';$('result').textContent=msg+' · Toque em INICIAR PARTIDA para jogar novamente.'}
