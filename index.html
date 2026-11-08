@@ -23,7 +23,7 @@
 #start:before{background:linear-gradient(90deg,rgba(3,8,5,.15),transparent 55%),radial-gradient(ellipse at 76% 38%,rgba(185,207,151,.12),transparent 42%)}
 @media(max-width:700px){#start{background:linear-gradient(0deg,rgba(4,9,7,.98) 0%,rgba(5,11,8,.86) 48%,rgba(5,11,8,.14) 100%)}}
 </style></head><body>
-<div id="hud"><div class="top"><div class="panel"><b>ELITE STRIKE</b> <span style="color:#a8c99a">3D • TESTE 1.2.4</span></div><div class="panel">VIDA <span class="health" id="hp">100</span>　MUNIÇÃO <b id="ammo">30/30</b>　INIMIGOS <b id="targets">4</b></div></div><div class="hint">WASD mover • mouse olhar • clique atirar • espaço pular • C agachar</div><div class="cross" id="cross"></div><div id="hitmark" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#ffdf9b;opacity:0">×</div></div>
+<div id="hud"><div class="top"><div class="panel"><b>ELITE STRIKE</b> <span style="color:#a8c99a">3D • TESTE 1.2.5</span></div><div class="panel">VIDA <span class="health" id="hp">100</span>　MUNIÇÃO <b id="ammo">30/30</b>　INIMIGOS <b id="targets">4</b></div></div><div class="hint">WASD mover • mouse olhar • clique atirar • espaço pular • C agachar</div><div class="cross" id="cross"></div><div id="hitmark" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#ffdf9b;opacity:0">×</div></div>
 <div id="mobile"><div class="lookPad" id="lookPad" aria-label="Controle da mira"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="action fire" id="fire">ATIRAR</button><button class="action jump" id="jump">PULAR</button><button class="action" id="crouch">AGACHAR</button><button class="action" id="reload" style="right:105px;bottom:126px">RECARREGAR</button></div>
 <div id="roundEnd" style="display:none;position:fixed;inset:0;z-index:8;background:#071009dd;place-items:center;text-align:center"><div style="background:#17231b;border:1px solid #829777;border-radius:16px;padding:26px;min-width:260px"><h1 id="roundTitle">FIM DE JOGO</h1><p id="roundText">Resultado da partida</p><button onclick="location.reload()">JOGAR NOVAMENTE</button></div></div>
 <div id="start"><div class="card">
@@ -39,7 +39,7 @@
 <div class="menu-options"><button class="menu-option selected">COMUNIDADE • SETOR 01</button></div>
 <p class="menu-info" style="margin-top:14px">BATALHÃO: defenda a base fortificada. TERRORISTAS: comece dentro da comunidade e avance pelas vielas.</p>
 <button id="go" class="menu-start">▶ &nbsp; INICIAR OPERAÇÃO</button>
-<div class="menu-footer"><span>ELITE STRIKE</span><span>BUILD 1.2.4 • BASES DE FACÇÃO</span></div>
+<div class="menu-footer"><span>ELITE STRIKE</span><span>BUILD 1.2.5 • BASES DE FACÇÃO</span></div>
 </div></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
@@ -56,7 +56,7 @@ function camoMaterial(base,variant=0){const cv=document.createElement('canvas');
 const groundCanvas=document.createElement('canvas');groundCanvas.width=groundCanvas.height=256;const gc=groundCanvas.getContext('2d');gc.fillStyle='#66685e';gc.fillRect(0,0,256,256);for(let i=0;i<2400;i++){const v=65+Math.random()*55;gc.fillStyle='rgba('+v+','+v+','+(v-5)+','+(.08+Math.random()*.12)+')';gc.fillRect(Math.random()*256,Math.random()*256,1+Math.random()*3,1+Math.random()*3)}const groundTex=new THREE.CanvasTexture(groundCanvas);groundTex.wrapS=groundTex.wrapT=THREE.RepeatWrapping;groundTex.repeat.set(8,8);groundTex.colorSpace=THREE.SRGBColorSpace;
 const ground=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({map:groundTex,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.08;scene.add(ground);
 
-function box(x,y,z,w,h,d,color){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(color));m.position.set(x,y,z);scene.add(m);return m}
+const unitBoxGeometry=new THREE.BoxGeometry(1,1,1),boxMaterials=new Map();function box(x,y,z,w,h,d,color){let material=boxMaterials.get(color);if(!material){material=mat(color);boxMaterials.set(color,material)}const m=new THREE.Mesh(unitBoxGeometry,material);m.position.set(x,y,z);m.scale.set(w,h,d);scene.add(m);return m}
 const colliders=[];function addCollider(x,z,w,d){colliders.push({x,z,hw:w/2,hd:d/2})}function blockedAt(x,z){const radius=.62;return colliders.some(o=>{const qx=Math.max(o.x-o.hw,Math.min(x,o.x+o.hw)),qz=Math.max(o.z-o.hd,Math.min(z,o.z+o.hd));return (x-qx)*(x-qx)+(z-qz)*(z-qz)<radius*radius})}function building(x,z,w,d,h,color){addCollider(x,z,w,d);box(x,h/2,z,w,h,d,color);box(x,h+.08,z,w+.18,.18,d+.18,0x514b40);for(let yy=1.2;yy<h-0.5;yy+=1.7)for(let xx=-w/2+.7;xx<w/2-.2;xx+=1.8)box(x+xx,yy,z-d/2-.015,.75,.65,.04,0x263c3b)}
 // COMUNIDADE NO MORRO — casas pequenas, próximas e irregulares formando vielas
 const houseColors=[0xc58b69,0xd0b27b,0x9b7560,0xb9a58a,0x8e9b79,0xc47b62,0xa7a18b,0x887b68,0xb69b78,0x9a8e83];
