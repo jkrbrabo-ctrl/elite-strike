@@ -23,7 +23,7 @@
 #start:before{background:linear-gradient(90deg,rgba(3,8,5,.15),transparent 55%),radial-gradient(ellipse at 76% 38%,rgba(185,207,151,.12),transparent 42%)}
 @media(max-width:700px){#start{background:linear-gradient(0deg,rgba(4,9,7,.98) 0%,rgba(5,11,8,.86) 48%,rgba(5,11,8,.14) 100%)}}
 </style></head><body>
-<div id="hud"><div class="top"><div class="panel"><b>ELITE STRIKE</b> <span style="color:#a8c99a">3D • TESTE 1.2.3</span></div><div class="panel">VIDA <span class="health" id="hp">100</span>　MUNIÇÃO <b id="ammo">30/30</b>　INIMIGOS <b id="targets">4</b></div></div><div class="hint">WASD mover • mouse olhar • clique atirar • espaço pular • C agachar</div><div class="cross" id="cross"></div><div id="hitmark" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#ffdf9b;opacity:0">×</div></div>
+<div id="hud"><div class="top"><div class="panel"><b>ELITE STRIKE</b> <span style="color:#a8c99a">3D • TESTE 1.2.4</span></div><div class="panel">VIDA <span class="health" id="hp">100</span>　MUNIÇÃO <b id="ammo">30/30</b>　INIMIGOS <b id="targets">4</b></div></div><div class="hint">WASD mover • mouse olhar • clique atirar • espaço pular • C agachar</div><div class="cross" id="cross"></div><div id="hitmark" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:900;color:#ffdf9b;opacity:0">×</div></div>
 <div id="mobile"><div class="lookPad" id="lookPad" aria-label="Controle da mira"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="action fire" id="fire">ATIRAR</button><button class="action jump" id="jump">PULAR</button><button class="action" id="crouch">AGACHAR</button><button class="action" id="reload" style="right:105px;bottom:126px">RECARREGAR</button></div>
 <div id="roundEnd" style="display:none;position:fixed;inset:0;z-index:8;background:#071009dd;place-items:center;text-align:center"><div style="background:#17231b;border:1px solid #829777;border-radius:16px;padding:26px;min-width:260px"><h1 id="roundTitle">FIM DE JOGO</h1><p id="roundText">Resultado da partida</p><button onclick="location.reload()">JOGAR NOVAMENTE</button></div></div>
 <div id="start"><div class="card">
@@ -39,14 +39,14 @@
 <div class="menu-options"><button class="menu-option selected">COMUNIDADE • SETOR 01</button></div>
 <p class="menu-info" style="margin-top:14px">BATALHÃO: defenda a base fortificada. TERRORISTAS: comece dentro da comunidade e avance pelas vielas.</p>
 <button id="go" class="menu-start">▶ &nbsp; INICIAR OPERAÇÃO</button>
-<div class="menu-footer"><span>ELITE STRIKE</span><span>BUILD 1.2.3 • BASES DE FACÇÃO</span></div>
+<div class="menu-footer"><span>ELITE STRIKE</span><span>BUILD 1.2.4 • BASES DE FACÇÃO</span></div>
 </div></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x9aaba0);scene.fog=new THREE.Fog(0x9aaba0,28,78);
 const camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.1,120);
 camera.position.set(0,6,19);camera.lookAt(0,1,-3);
-const renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:'low-power'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.shadowMap.enabled=false;document.body.prepend(renderer.domElement);
+const renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:'low-power'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(pointer:coarse)').matches?0.9:1.1));renderer.shadowMap.enabled=false;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xdce9dc,0x4a5144,2));const sun=new THREE.DirectionalLight(0xffe6c4,1.6);sun.position.set(-12,24,10);scene.add(sun);
 
 const mat=(c)=>new THREE.MeshStandardMaterial({color:c,roughness:1,flatShading:true});
@@ -91,22 +91,22 @@ for(const [x,z,side,col] of [[-14,-9,1,0x9a493b],[14,-1,-1,0x3f6570],[-14,7,1,0x
 // Caixas d'água maiores, antenas e varais cruzando os becos
 for(const [x,z] of [[-12,-5],[12,3],[-12,15],[12,-17]]){const tank=new THREE.Mesh(new THREE.CylinderGeometry(.68,.68,.85,9),metalMat);tank.position.set(x,5.1,z);scene.add(tank);const cap=new THREE.Mesh(new THREE.CylinderGeometry(.7,.7,.08,9),roofMat);cap.position.set(x,5.57,z);scene.add(cap);box(x,4.55,z,.1,.2,.1,metalMat.color.getHex())}
 for(const [x1,z1,x2,z2] of [[-10,-12,10,-12],[-10,4,10,4],[-10,16,10,16]]){const line=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,4.2,z1),new THREE.Vector3((x1+x2)/2,3.8,z1+.4),new THREE.Vector3(x2,4.2,z2)]);scene.add(new THREE.Line(line,new THREE.LineBasicMaterial({color:0x343a34})));for(let k=0;k<3;k++){const cloth=box(x1+4+k*2,3.75,z1+.15,.55,.5,.04,[0x9c493d,0x435b72,0xc3b18c][k]);cloth.rotation.z=(k-1)*.08}}
-// MORRO DA COMUNIDADE: terraços escalonados, vielas e casas empilhadas
-// A comunidade ocupa o extremo norte; a base do Batalhão fica no extremo sul.
+// MORRO DA COMUNIDADE — cenário escalonado otimizado para celulares de entrada
 for(let tier=0;tier<3;tier++){
  const tz=-25-tier*5,ty=1.25+tier*2.15;
  box(0,ty-.18,tz,39,.36,5.2,0x746b5b);
- for(let j=0;j<8;j++){
-  const x=-17.5+j*5,idx=(j+tier*3)%plasterMats.length,w=4.25+(j%2)*.35,d=3.8,h=3.35+(j%3)*.45;
+ for(let j=0;j<5;j++){
+  const x=-16+j*8,idx=(j+tier*3)%plasterMats.length,w=6.1,d=3.8,h=3.35+(j%3)*.45;
   const house=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),plasterMats[idx]);house.position.set(x,ty+h/2,tz-1.1);scene.add(house);
   box(x,ty+h+.08,tz-1.1,w+.16,.16,d+.16,roofMat.color.getHex());
-  box(x-w*.22,ty+1.25,tz+0.86,.62,.72,.07,windowMat.color.getHex());
-  box(x+w*.23,ty+.9,tz+0.86,.68,1.75,.09,doorMat.color.getHex());
+  box(x-.9,ty+1.25,tz+.86,.62,.72,.07,windowMat.color.getHex());
+  box(x+.9,ty+.9,tz+.86,.68,1.75,.09,doorMat.color.getHex());
   if(tier===0)addCollider(x,tz-1.1,w,d);
  }
 }
-for(let n=0;n<18;n++){const z=-19-n*.72,y=.12+n*.19;box(0,y,z,1.55,.24,.68,0x8a8273);box(-.86,y+.08,z,.12,.4,.68,0x55594e);box(.86,y+.08,z,.12,.4,.68,0x55594e)}
-for(const side of [-1,1])for(let tier=0;tier<3;tier++){const z=-25-tier*5,y=1.2+tier*2.15;box(side*19.25,y,z,.55,2.1,5.1,0x62594c);for(let k=0;k<4;k++)box(side*18.96,y-.55+k*.36,z-1.7+k*.85,.08,.18,.08,0x8b5944)}
+// Escadaria de acesso simplificada, subindo da viela ao morro
+for(let n=0;n<12;n++){const z=-20-n*.85,y=.12+n*.28;box(0,y,z,1.5,.24,.72,0x8a8273)}
+for(const side of [-1,1])for(let tier=0;tier<3;tier++){const z=-25-tier*5,y=1.2+tier*2.15;box(side*19.25,y,z,.55,2.1,5.1,0x62594c)}
 // BASE DO BATALHÃO — posto fortificado no extremo sul do mapa
 box(0,-.025,28,18,.12,13,0x77796e);
 for(const [x,z,w,d] of [[-8,28,.55,13],[8,28,.55,13], [0,34,16,.55]]){box(x,.75,z,w,1.5,d,0x62665c)}
@@ -163,5 +163,5 @@ const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);
 for(const bot of bots){const botMoving=bot.position.distanceTo(player.position)>2.8;bot.userData.anim=(bot.userData.anim||0)+dt*(botMoving?5:1.2);const gait=Math.sin(bot.userData.anim),botSwing=gait*.34*(botMoving?1:0),aiming=bot.position.distanceTo(player.position)<15;const armPose=aiming?-.58:-.38;bot.userData.limbs[0].rotation.x+=(armPose+botSwing*.16-bot.userData.limbs[0].rotation.x)*Math.min(1,dt*8);bot.userData.limbs[2].rotation.x+=(armPose-botSwing*.16-bot.userData.limbs[2].rotation.x)*Math.min(1,dt*8);bot.userData.limbs[1].rotation.x+=(-botSwing-bot.userData.limbs[1].rotation.x)*Math.min(1,dt*9);bot.userData.limbs[3].rotation.x+=(botSwing-bot.userData.limbs[3].rotation.x)*Math.min(1,dt*9);bot.userData.body.position.y=botMoving?Math.abs(Math.sin(bot.userData.anim*2))*.035:Math.sin(bot.userData.anim*1.5)*.008;const botLean=botMoving?gait*.026:0;bot.userData.body.rotation.z+=(botLean-bot.userData.body.rotation.z)*Math.min(1,dt*7);const torsoPitch=botMoving?-.025:0;bot.userData.body.rotation.x+=(torsoPitch-bot.userData.body.rotation.x)*Math.min(1,dt*8);const botGunSway=botMoving?Math.sin(bot.userData.anim)*.012:0;bot.userData.gun.rotation.z+=(botGunSway-bot.userData.gun.rotation.z)*Math.min(1,dt*6);const toPlayer=player.position.clone().sub(bot.position);const dist=toPlayer.length();if(dist>2.8){toPlayer.normalize();const moveX=toPlayer.x*dt*1.05,moveZ=toPlayer.z*dt*1.05;const steps=Math.max(1,Math.ceil(Math.max(Math.abs(moveX),Math.abs(moveZ))/.1));for(let s=0;s<steps;s++){const sx=moveX/steps,sz=moveZ/steps;const nx=bot.position.x+sx,nz=bot.position.z+sz;if(!blockedAt(nx,bot.position.z))bot.position.x=nx;if(!blockedAt(bot.position.x,nz))bot.position.z=nz}bot.rotation.y=Math.atan2(-toPlayer.x,-toPlayer.z)}if(dist<15){bot.userData.cool=(bot.userData.cool||0)+dt;if(bot.userData.cool>1.25){bot.userData.cool=0;if(Math.random()<.58){const muzzle=bot.userData.flash;muzzle.visible=true;bot.userData.gun.rotation.x=-.16;setTimeout(()=>{if(muzzle)muzzle.visible=false;if(bot.userData.gun)bot.userData.gun.rotation.x=0},85);const shotFrom=bot.position.clone().add(new THREE.Vector3(0,1.42,0)),shotTo=player.position.clone().add(new THREE.Vector3(0,1.15,0));tracer(shotFrom,shotTo,0xff7655);hp=Math.max(0,hp-5);document.querySelector('#hp').textContent=hp}}}}
 if(hp<=0)endRound(false);else if(bots.length===0)endRound(true);const camPos=player.position.clone().add(new THREE.Vector3(Math.sin(yaw)*5,3.0+recoil,Math.cos(yaw)*5));camera.position.lerp(camPos,.18);const aimPoint=player.position.clone().add(new THREE.Vector3(-Math.sin(yaw)*12,1.45+pitch*10,-Math.cos(yaw)*12));camera.lookAt(aimPoint);document.querySelector('#hp').textContent=hp}
 for(let i=corpses.length-1;i>=0;i--){const corpse=corpses[i];corpse.life-=dt;const fall=Math.min(1,(1.15-corpse.life)*3.2);corpse.bot.userData.body.rotation.z=-1.42*fall;corpse.bot.userData.body.rotation.x=.16*fall;corpse.bot.position.y=-.28*fall;corpse.bot.userData.limbs[0].rotation.x=-.9*fall;corpse.bot.userData.limbs[2].rotation.x=-.9*fall;corpse.bot.userData.limbs[1].rotation.x=.55*fall;corpse.bot.userData.limbs[3].rotation.x=.55*fall;if(corpse.life<=0){scene.remove(corpse.bot);corpses.splice(i,1)}}for(let i=effects.length-1;i>=0;i--){effects[i].life-=dt;if(effects[i].life<=0){scene.remove(effects[i].obj);effects[i].obj.geometry.dispose();effects[i].obj.material.dispose();effects.splice(i,1)}}if(performance.now()>hitUntil)hitmark.style.opacity='0';renderer.render(scene,camera)}animate();
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25))});
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(pointer:coarse)').matches?0.9:1.1))});
 </script></body></html>
