@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.4.0</title>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.4.1</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101611;color:#edf1e8;font:14px system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none}.top{position:absolute;top:10px;left:12px;right:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.panel{background:#101a; border:1px solid #71816c88;border-radius:10px;padding:8px 12px;text-shadow:0 1px 3px #000}.health{color:#9cff8b;font-weight:800}.team-score{display:flex;align-items:center;justify-content:space-between;gap:9px;min-width:0;padding:8px 10px;border-radius:5px;font-size:clamp(9px,2.3vw,12px);letter-spacing:.7px}.team-left{border-left:3px solid #7da8d5}.team-right{border-right:3px solid #c77b63}.team-score strong{font-size:19px;color:#e7eddf;font-variant-numeric:tabular-nums}.team-left b{color:#a9c9ec}.team-right b{color:#e9ad91}.match-clock{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:4px 13px;border:1px solid #b6c68b99;border-radius:5px;min-width:76px;background:#080d0beF}.match-clock span{font-size:8px;letter-spacing:1.5px;color:#b9c99e}.match-clock strong{font-size:22px;line-height:1.15;letter-spacing:1px;font-variant-numeric:tabular-nums;color:#f4f3d8}.match-clock strong.urgent{color:#ff7568;text-shadow:0 0 12px #ff3b2b88;animation:timerPulse .8s infinite alternate}@keyframes timerPulse{to{opacity:.55}}.status-panel{position:absolute;top:64px;right:12px;font-size:11px;padding:7px 10px}@media(max-width:700px){.top{top:8px;left:7px;right:7px;gap:5px}.team-score{padding:7px 6px;gap:5px;letter-spacing:0}.team-score strong{font-size:16px}.match-clock{min-width:66px;padding:4px 8px}.match-clock strong{font-size:19px}.status-panel{top:55px;right:7px;font-size:9px;padding:6px 7px}}.mission-tag{position:absolute;left:12px;bottom:16px;padding:9px 12px;background:linear-gradient(90deg,#101aee,#101a99);border:1px solid #91a77a88;border-left:3px solid #b4d18b;border-radius:3px;color:#dce8d4;font-size:10px;letter-spacing:1.4px;font-weight:800;text-shadow:0 1px 3px #000;box-shadow:0 5px 18px #0005}.mission-tag span{color:#b4d18b;margin-right:7px}@media(max-width:700px){.mission-tag{bottom:160px;left:12px;font-size:9px;padding:7px 9px}}.hint{position:absolute;top:64px;left:12px;color:#d4dfd0;font-size:12px;text-shadow:0 2px 3px #000}.cross{position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%)}.cross:before,.cross:after{content:"";position:absolute;background:#fff;box-shadow:0 0 4px #000}.cross:before{width:2px;height:18px;left:8px}.cross:after{height:2px;width:18px;top:8px}#start{position:fixed;inset:0;background:linear-gradient(#08100bdc,#08100bf2);display:grid;place-items:center;z-index:5}#start .card{max-width:340px;margin:20px;text-align:center;background:#17231b;border:1px solid #687c60;border-radius:16px;padding:24px}h1{letter-spacing:3px;margin:0 0 8px;color:#c8f3a7}button{border:1px solid #8ca77b;background:#344c30;color:white;border-radius:10px;padding:12px 18px;font-weight:800;font-size:14px}#mobile{position:fixed;inset:0;pointer-events:none;display:none}.lookPad{position:absolute;right:0;top:78px;bottom:190px;width:58%;pointer-events:auto;touch-action:none;background:transparent;z-index:1}.stick{position:absolute;left:22px;bottom:24px;width:118px;height:118px;border:2px solid #ffffff66;border-radius:50%;background:#18251c88;pointer-events:auto;touch-action:none;z-index:2}.knob{position:absolute;left:35px;top:35px;width:44px;height:44px;border-radius:50%;background:#b8d6a899;border:1px solid #eaffd4}.action{position:absolute;right:22px;bottom:34px;z-index:3;pointer-events:auto;touch-action:none;min-width:70px;min-height:58px;background:#243a2bdc}.action.fire{right:105px;bottom:54px;background:#70352fe8}.action.jump{right:22px;bottom:112px;min-width:58px;min-height:48px}
 @media(pointer:coarse){#mobile{display:block}.hint{top:60px;max-width:65%}}
@@ -69,7 +69,7 @@
 <div id="rotateNotice"><div class="rotate-card"><span class="rotate-symbol">↻</span><strong>GIRE O CELULAR</strong>O ELITE STRIKE foi feito para jogar na horizontal. Vire o aparelho para continuar.</div></div>
 <div id="mobile"><div class="lookPad" id="lookPad" aria-label="Controle da mira"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="action fire" id="fire" aria-label="Atirar"><span class="hud-icon">✹</span><small>ATIRAR</small></button><button class="action jump" id="jump" aria-label="Pular"><span class="hud-icon">⬆</span><small>PULAR</small></button><button class="action" id="crouch" aria-label="Agachar"><span class="hud-icon">▤</span><small>AGACHAR</small></button><button class="action" id="reload" style="right:105px;bottom:126px" aria-label="Recarregar"><span class="hud-icon">↻</span><small>RECARREGAR</small></button><button class="action sprint" id="sprint" aria-label="Correr"><span class="hud-icon">»</span><small>CORRER</small></button></div>
 <div id="roundEnd" style="display:none;position:fixed;inset:0;z-index:8;background:#071009dd;place-items:center;text-align:center"><div style="background:#17231b;border:1px solid #829777;border-radius:16px;padding:26px;min-width:260px"><h1 id="roundTitle">FIM DE JOGO</h1><p id="roundText">Resultado da partida</p><button onclick="location.reload()">JOGAR NOVAMENTE</button></div></div>
-<div id="loadingScreen"><div class="loading-card"><div class="loading-art"><div class="art-kicker">OPERAÇÃO ESPECIAL • BRASIL</div><div class="art-title">ELITE<br>STRIKE</div><div class="art-sub">COMUNIDADE • SETOR DE COMBATE</div><div class="art-silhouette">▰　◢　▰</div></div><div class="menu-kicker">INICIALIZANDO OPERAÇÃO</div><div class="loading-logo">ELITE STRIKE</div><div class="loading-caption" id="loadingCaption">CARREGANDO RECURSOS DO JOGO...</div><div class="loading-track"><div id="loadingBar"></div></div><div class="loading-meta"><span id="loadingPercent">0%</span><span>BUILD 1.4.0</span></div></div></div>
+<div id="loadingScreen"><div class="loading-card"><div class="loading-art"><div class="art-kicker">OPERAÇÃO ESPECIAL • BRASIL</div><div class="art-title">ELITE<br>STRIKE</div><div class="art-sub">COMUNIDADE • SETOR DE COMBATE</div><div class="art-silhouette">▰　◢　▰</div></div><div class="menu-kicker">INICIALIZANDO OPERAÇÃO</div><div class="loading-logo">ELITE STRIKE</div><div class="loading-caption" id="loadingCaption">CARREGANDO RECURSOS DO JOGO...</div><div class="loading-track"><div id="loadingBar"></div></div><div class="loading-meta"><span id="loadingPercent">0%</span><span>BUILD 1.4.1</span></div></div></div>
 <div id="start" class="lobby">
 <aside class="lobby-rail">
 <div class="rail-brand">ES<span>•</span></div>
@@ -85,10 +85,14 @@
 <div class="operator-caption"><span>SEU OPERADOR</span><strong id="operatorName">ASSALTO • BATALHÃO</strong></div>
 <div class="operator-shadow"></div>
 <div class="operator-hint">PERSONAGEM 3D</div>
-<div class="lobby-version">ELITE STRIKE <i>BUILD 1.4.0</i></div>
+<div class="lobby-version">ELITE STRIKE <i>BUILD 1.4.1</i></div>
 </section>
 <aside class="lobby-right">
-<div class="right-heading"><span>PAINEL DE MISSÃO</span><b>01 / 03</b></div>
+<div class="match-summary"><small>MODO SELECIONADO</small><strong id="lobbyModeName">BATALHA POR EQUIPES</strong><span id="lobbyMapName">COMUNIDADE • SETOR 01</span></div>
+<button class="configure-match" id="openMatchConfig">⚙ CONFIGURAR PARTIDA</button>
+<div class="match-config" id="matchConfig">
+<button class="config-close" id="closeMatchConfig">✕</button>
+<div class="right-heading"><span>CONFIGURAÇÃO DA PARTIDA</span><b>OPÇÕES</b></div>
 <div class="menu-label">ESCOLHA SEU LADO</div>
 <div class="menu-options"><button class="menu-option selected" data-faction="BATALHÃO">BATALHÃO</button><button class="menu-option" data-faction="TERRORISTAS">TERRORISTAS</button></div>
 <div class="menu-label">CLASSE DE COMBATE</div>
@@ -98,10 +102,12 @@
 <div class="menu-label">MAPA DA OPERAÇÃO</div>
 <div class="menu-options"><button class="menu-option selected" data-map="COMUNIDADE">COMUNIDADE • SETOR 01</button><button class="menu-option" data-map="NOTURNO">COMUNIDADE • NOTURNO</button></div>
 <p class="menu-info" id="modeInfo">BATALHA POR EQUIPES: enfrente os bots inimigos e conquiste o setor.</p>
-<button id="go" class="menu-start">▶ &nbsp; COMEÇAR</button>
-<div class="menu-footer"><span>ELITE STRIKE</span><span>PRONTO PARA COMBATE</span></div>
+
+<p class="menu-info" id="modeInfo">BATALHA POR EQUIPES: enfrente os bots inimigos e conquiste o setor.</p>
+</div>
+<button id="go" class="menu-start">▶ &nbsp; DECOLAR</button>
 </aside>
-<aside class="lobby-quick"><div class="quick-label">ATIVIDADES</div><button title="Missões">▤</button><button title="Eventos">✦</button><button title="Classificação">♜</button><button title="Conquistas">♛</button></aside>
+<aside class="lobby-quick"><div class="quick-label">ATALHOS</div><button title="Missões">▤</button><button title="Eventos">✦</button><button title="Classificação">♜</button><button title="Conquistas">♛</button></aside>
 <div class="lobby-modal" id="lobbyModal" aria-hidden="true"><div class="lobby-modal-card"><button class="modal-close" id="closeLobbyModal">✕</button><div class="modal-kicker" id="modalKicker">PERSONALIZAÇÃO</div><h2 id="modalTitle">LOJA DE SKINS</h2><p id="modalText">Novas aparências para seu operador.</p><div class="modal-items" id="modalItems"></div></div></div>
 </div>
 <script type="module">
@@ -248,6 +254,7 @@ document.querySelectorAll('[data-class]').forEach(el=>el.addEventListener('click
 document.querySelectorAll('[data-faction]').forEach(el=>el.addEventListener('click',()=>setTimeout(updateOperatorLabel,0)));
 function updateOperatorLabel(){const n=document.querySelector('#operatorName');if(n)n.textContent=selectedClass+' • '+selectedFaction}
 updateOperatorLabel();
+const openConfig=document.querySelector('#openMatchConfig'),matchConfig=document.querySelector('#matchConfig');openConfig.addEventListener('click',()=>matchConfig.classList.add('show'));document.querySelector('#closeMatchConfig').addEventListener('click',()=>matchConfig.classList.remove('show'));document.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{document.querySelector('#lobbyModeName').textContent=el.dataset.mode==='TREINO'?'TREINAMENTO':'BATALHA POR EQUIPES'}));document.querySelectorAll('[data-map]').forEach(el=>el.addEventListener('click',()=>{document.querySelector('#lobbyMapName').textContent=el.dataset.map==='NOTURNO'?'COMUNIDADE • NOTURNO':'COMUNIDADE • SETOR 01'}));
 const lobbyModal=document.querySelector('#lobbyModal');function openLobbyPanel(kind){const store=kind==='store';document.querySelector('#modalKicker').textContent=store?'PERSONALIZAÇÃO DO OPERADOR':'ITENS DESBLOQUEADOS';document.querySelector('#modalTitle').textContent=store?'LOJA DE SKINS':'MEU COFRE';document.querySelector('#modalText').textContent=store?'Escolha novas aparências para seu soldado. A compra e os créditos serão ativados na próxima etapa.':'Aqui ficará sua coleção de skins e itens adquiridos.';document.querySelector('#modalItems').innerHTML=store?'<div class="skin-tile"><div class="skin-preview camo-one"></div><b>CAMUFLAGEM TÁTICA</b><small>SKIN • EM BREVE</small><button disabled>EM BREVE</button></div><div class="skin-tile"><div class="skin-preview camo-two"></div><b>OPERAÇÕES NOTURNAS</b><small>SKIN • EM BREVE</small><button disabled>EM BREVE</button></div><div class="skin-tile"><div class="skin-preview camo-three"></div><b>FORÇA URBANA</b><small>SKIN • EM BREVE</small><button disabled>EM BREVE</button></div>':'<div class="skin-tile"><div class="skin-preview camo-one"></div><b>OPERADOR PADRÃO</b><small>SKIN INICIAL • DISPONÍVEL</small><button disabled>EQUIPADA</button></div><div class="vault-empty">Sua coleção vai aparecer aqui conforme desbloquear novas skins.</div>';lobbyModal.classList.add('show');lobbyModal.setAttribute('aria-hidden','false')}
 document.querySelector('#openStore').addEventListener('click',()=>openLobbyPanel('store'));document.querySelector('#openVault').addEventListener('click',()=>openLobbyPanel('vault'));document.querySelector('#closeLobbyModal').addEventListener('click',()=>{lobbyModal.classList.remove('show');lobbyModal.setAttribute('aria-hidden','true')});lobbyModal.addEventListener('pointerdown',e=>{if(e.target===lobbyModal)document.querySelector('#closeLobbyModal').click()});
 document.querySelector('#go').onclick=()=>{requestLandscapeMode();const go=document.querySelector('#go');go.disabled=true;go.textContent='PREPARANDO...';const loader=document.querySelector('#loadingScreen'),bar=document.querySelector('#loadingBar'),pct=document.querySelector('#loadingPercent'),caption=document.querySelector('#loadingCaption');loader.classList.remove('hidden');loader.style.display='flex';bar.style.width='12%';pct.textContent='12%';caption.textContent='PREPARANDO A OPERAÇÃO...';let load=12;const loadTick=setInterval(()=>{load=Math.min(88,load+7);bar.style.width=load+'%';pct.textContent=load+'%';caption.textContent=load<40?'CARREGANDO CENÁRIO...':load<68?'PREPARANDO SOLDADOS...':'CONFIGURANDO CONTROLES...';},100);setTimeout(()=>{clearInterval(loadTick);try{renderer.compile(scene,camera);bar.style.width='100%';pct.textContent='100%';caption.textContent='OPERAÇÃO PRONTA';const loadouts={ASSALTO:{damage:34,delay:260,mag:30,reload:1250},SNIPER:{damage:90,delay:900,mag:5,reload:1900},SUPORTE:{damage:23,delay:125,mag:45,reload:1650},MÉDICO:{damage:28,delay:320,mag:25,reload:1350}};const kit=loadouts[selectedClass]||loadouts.ASSALTO;weaponDamage=kit.damage;fireDelay=kit.delay;magazineSize=kit.mag;reloadDuration=kit.reload;ammo=magazineSize;document.querySelector('#ammo').textContent=ammo+'/'+magazineSize;player.position.set(0,0,selectedFaction==='BATALHÃO'?30:-15);player.rotation.y=selectedFaction==='BATALHÃO'?Math.PI:0;const botSpawns=selectedFaction==='BATALHÃO'?[[-6,-6],[6,-6],[-6,-11],[6,-11]]:[[-6,12],[6,12],[-6,16],[6,16]];bots.forEach((b,i)=>{b.visible=true;const spawn=botSpawns[i%botSpawns.length];b.position.set(spawn[0],0,spawn[1]);b.rotation.y=selectedFaction==='BATALHÃO'?Math.PI:0;b.userData.hp=100;if(b.userData.healthBar)b.userData.healthBar.visible=true});hp=100;document.querySelector('#hp').textContent=hp;matchRemaining=1200;scoreLeft=0;scoreRight=0;document.querySelector('#teamLeft').textContent=selectedFaction==='BATALHÃO'?'BATALHÃO':'TERRORISTAS';document.querySelector('#teamRight').textContent=selectedFaction==='BATALHÃO'?'TERRORISTAS':'BATALHÃO';updateScore();updateMatchTimer();if(selectedMap==='NOTURNO'){scene.background=new THREE.Color(0x26313a);scene.fog.color.set(0x26313a);sun.color.set(0x9daecc);sun.intensity=0.85;}else{scene.background=new THREE.Color(0x9aaba0);scene.fog.color.set(0x9aaba0);sun.color.set(0xffe6c4);sun.intensity=1.6;}if(selectedMode==='TREINO'){matchRemaining=1200;document.querySelector('#matchTimer').textContent='TREINO';}started=true;updateRotateNotice();document.querySelector('#start').remove();document.querySelector('.hint').textContent=selectedFaction+' • CLASSE '+selectedClass+' • '+weaponDamage+' DANO • WASD mover • clique atirar';document.querySelector('#missionLabel').innerHTML='<span>MISSÃO</span> '+(selectedFaction==='BATALHÃO'?'DEFENDER A BASE • ELIMINAR HOSTIS':'AVANÇAR PELAS VIELAS • ELIMINAR HOSTIS');try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){audio=audio||new AC();audio.resume?.().catch(()=>{})}}catch(soundErr){console.warn('Áudio indisponível:',soundErr)}setTimeout(()=>{loader.classList.add('hidden');setTimeout(()=>{loader.style.display='none'},380)},350);}catch(err){started=false;go.disabled=false;go.textContent='TENTAR NOVAMENTE';loader.classList.add('hidden');setTimeout(()=>{loader.style.display='none'},380);const msg=document.querySelector('#start .card');let report=msg.querySelector('.start-error');if(!report){report=document.createElement('p');report.className='start-error';report.style.cssText='color:#ff9b8b;font-size:12px;overflow-wrap:anywhere';msg.appendChild(report)}report.textContent='Falha ao iniciar: '+(err?.message||err)+' | '+(err?.stack||'sem detalhes técnicos').split('\n').slice(0,3).join(' | ');console.error('ELITE STRIKE start error',err)}},850);};
@@ -309,7 +316,7 @@ const bootLoader=document.querySelector('#loadingScreen'),bootBar=document.query
 }
 </style>
 <style>
-/* BUILD 1.4.0 — LOBBY COM OPERADOR 3D */
+/* BUILD 1.4.1 — LOBBY COM OPERADOR 3D */
 #start.lobby{position:fixed;inset:0;z-index:12;display:grid;grid-template-columns:92px minmax(0,1fr) minmax(300px,365px);padding:0;background:linear-gradient(90deg,#07100df2,#0a140cc9 18%,#101a0c22 55%,#08100df0 100%);overflow:hidden}
 #start.lobby:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 52% 45%,#a5bb7540,transparent 35%),linear-gradient(0deg,#050906bb,transparent 45%),repeating-linear-gradient(90deg,transparent 0 80px,#d4e4c20a 81px 82px);pointer-events:none}
 #start.lobby:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#050b08 0%,transparent 19%,transparent 70%,#050b08 100%);pointer-events:none}
@@ -347,7 +354,7 @@ const bootLoader=document.querySelector('#loadingScreen'),bootBar=document.query
 </style>
 
 <style>
-/* BUILD 1.4.0 — LOBBY IMERSIVO INSPIRADO EM SHOOTERS MOBILE */
+/* BUILD 1.4.1 — LOBBY IMERSIVO INSPIRADO EM SHOOTERS MOBILE */
 #start.lobby{grid-template-columns:174px minmax(0,1fr) 326px;background:#080d12;isolation:isolate}
 #start.lobby:before{background:
 radial-gradient(ellipse at 57% 43%,#6ba2b955 0,transparent 32%),
@@ -426,5 +433,82 @@ linear-gradient(110deg,#101b24,#26333a 45%,#111a22)}
  .lobby-right .menu-start{padding:10px}
  .lobby-right .menu-footer{margin-top:8px}
  .lobby-quick{right:310px}
+}
+</style>
+
+
+<style>
+/* BUILD 1.4.1 — LOBBY REFEITO: AVATAR CENTRAL E INTERFACE DE JOGO */
+#start.lobby{grid-template-columns:160px minmax(0,1fr);grid-template-rows:1fr;background:#080e13}
+#start.lobby:before{background:
+radial-gradient(ellipse at 58% 46%,#82b9cf55 0,transparent 34%),
+linear-gradient(180deg,#07121a22 0%,#07121a20 55%,#03070bc9 100%),
+linear-gradient(110deg,#101b24,#34444a 48%,#111a22)}
+#start.lobby:after{background:linear-gradient(90deg,#070d12 0%,transparent 24%,transparent 100%)}
+.lobby-rail{grid-column:1;grid-row:1;z-index:4;padding:78px 10px 18px;gap:8px;background:linear-gradient(180deg,#0a1118ed,#080d13eF);border-right:1px solid #a5c5d044}
+.rail-brand{left:20px;top:19px;font-size:29px}
+.rail-section{font-size:8px;color:#8298a4}
+.rail-btn{height:47px;justify-content:flex-start;background:transparent;border:0;border-left:3px solid transparent;border-radius:2px;padding:0 10px;gap:10px}
+.rail-btn.selected{background:linear-gradient(90deg,#d8eaf02b,transparent);border-left-color:#f3b33f;color:#fff}
+.lobby-topbar{left:160px;right:0;height:52px;padding:0 25px;background:linear-gradient(180deg,#050a0fc9,transparent);border:0}
+.lobby-center{grid-column:2;grid-row:1;min-height:100%;padding:68px 30px 20px;background:transparent}
+.lobby-topline{max-width:100%;color:#c2d0d7}
+.operator-caption{top:16%;left:7%;z-index:2}
+.operator-caption span{color:#c5d5dc}
+.operator-caption strong{font-size:clamp(16px,2.4vw,25px);color:#fff}
+.operator-shadow{bottom:8%;width:min(40vw,420px);height:42px;background:#000b;filter:blur(20px)}
+.operator-hint{bottom:4%;font-size:9px;color:#e4edf0}
+.lobby-version{position:absolute;left:28px;bottom:20px;font-size:8px;color:#d9e5e9}
+.lobby-right{position:absolute;z-index:5;right:22px;bottom:20px;width:min(330px,42vw);height:auto;max-height:none;overflow:visible;padding:14px;background:linear-gradient(145deg,#121e27ed,#071018f2);border:1px solid #a6c3d155;border-radius:4px;box-shadow:0 12px 45px #000b}
+.match-summary{display:flex;flex-direction:column;gap:3px;padding:2px 4px 10px}
+.match-summary small{font-size:8px;letter-spacing:2px;color:#9fb6c2}
+.match-summary strong{font-size:17px;letter-spacing:1px;color:#f4f6f7}
+.match-summary span{font-size:9px;color:#aabac2;letter-spacing:1px}
+.configure-match{width:100%;margin:0 0 8px;padding:9px;background:#1c2b35;border:1px solid #718b98;border-radius:2px;font-size:9px;letter-spacing:1.5px}
+.lobby-right .menu-start{width:100%;margin:0;padding:18px 12px;border:1px solid #fff0bd;border-radius:2px;background:linear-gradient(100deg,#ffd36b,#e99a22);color:#201506;font-size:19px;font-weight:1000;letter-spacing:4px;box-shadow:0 5px 24px #f1ad3638}
+.match-config{display:none;position:fixed;z-index:20;inset:7% 12%;overflow:auto;padding:24px;background:#101c25f7;border:1px solid #a9c4d1;box-shadow:0 20px 80px #000e;backdrop-filter:blur(12px)}
+.match-config.show{display:block}
+.config-close{float:right;padding:7px 12px}
+.match-config .menu-label{margin:15px 0 7px;color:#9fb4bf}
+.match-config .menu-option{background:#1c2a34;border-color:#526775;color:#e1e8eb}
+.match-config .menu-option.selected{background:linear-gradient(110deg,#8eafbd,#496575);border-color:#e0edf1;color:#081117}
+.match-config .menu-options{display:flex;gap:7px;flex-wrap:wrap}
+.match-config .menu-option{min-width:calc(50% - 7px);flex:1}
+.match-config .menu-info{color:#b9c8cf}
+.lobby-quick{position:absolute;z-index:4;right:15px;top:22%;display:flex;flex-direction:column;gap:9px;align-items:center}
+.lobby-quick button{width:40px;height:40px;background:#101b24d9;border:1px solid #a9c3ce88;border-radius:2px;color:#e8f0f3;font-size:18px}
+.lobby-modal{z-index:24}
+@media(max-width:700px){
+ #start.lobby{grid-template-columns:62px minmax(0,1fr)}
+ .lobby-rail{padding:64px 4px 9px;gap:7px}
+ .rail-brand{left:12px;top:17px;font-size:21px}
+ .rail-section{display:none}
+ .rail-btn{height:49px;justify-content:center;padding:3px;flex-direction:column;gap:2px}
+ .rail-btn b{font-size:18px;width:auto}.rail-btn small{font-size:6px;letter-spacing:.4px}
+ .lobby-topbar{left:62px;right:0;height:44px;padding:0 10px}
+ .lobby-top-brand{font-size:10px;letter-spacing:1.5px}.lobby-top-status{font-size:7px}.lobby-top-icons{gap:8px;font-size:13px}
+ .lobby-center{grid-column:2;grid-row:1;min-height:100%;padding:54px 9px 12px}
+ .operator-caption{top:15%;left:6%}.operator-caption strong{font-size:13px}
+ .operator-shadow{width:58vw;bottom:17%}.operator-hint{bottom:14%;font-size:7px}
+ .lobby-version{left:10px;bottom:8px;font-size:7px}
+ .lobby-right{right:8px;bottom:8px;width:min(235px,48vw);padding:8px}
+ .match-summary{padding:0 2px 6px}.match-summary strong{font-size:12px}.match-summary span{font-size:7px}
+ .configure-match{font-size:7px;padding:7px;margin-bottom:5px}
+ .lobby-right .menu-start{padding:12px 8px;font-size:16px}
+ .lobby-quick{right:7px;top:17%;gap:5px}
+ .lobby-quick button{width:29px;height:29px;font-size:13px}
+ .match-config{inset:5% 5%;padding:15px}
+}
+@media(max-height:500px) and (orientation:landscape){
+ .lobby-right{width:225px;right:8px;bottom:8px;padding:7px}
+ .match-summary strong{font-size:11px}.configure-match{padding:6px}
+ .lobby-right .menu-start{padding:10px;font-size:14px}
+ .lobby-quick{top:18%;right:7px}
+ .lobby-quick button{width:28px;height:28px}
+ .operator-caption{top:14%}
+}
+@media(max-width:390px) and (orientation:portrait){
+ .lobby-right{width:calc(100% - 78px);right:8px}
+ .lobby-quick{right:6px;top:15%}
 }
 </style>
