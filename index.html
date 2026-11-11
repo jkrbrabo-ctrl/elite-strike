@@ -241,6 +241,7 @@ function loadRiggedSoldier(root,faction){
  root.userData.modelFaction=requested;
  soldierLoader.load(soldierAssetURLs[requested],gltf=>{
   if(root.userData.modelFaction!==requested)return;
+  if(root.userData.rig){root.remove(root.userData.rig);root.userData.mixer?.stopAllAction();root.userData.rig=null;root.userData.mixer=null;}
   const rig=cloneSkeleton(gltf.scene);
   rig.name='ELITE_STRIKE_RIGGED_SOLDIER_'+requested;
   rig.traverse(o=>{
