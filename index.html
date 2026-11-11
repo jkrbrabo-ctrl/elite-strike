@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.6.0</title>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.6.1</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101611;color:#edf1e8;font:14px system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none}.top{position:absolute;top:10px;left:12px;right:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.panel{background:#101a; border:1px solid #71816c88;border-radius:10px;padding:8px 12px;text-shadow:0 1px 3px #000}.health{color:#9cff8b;font-weight:800}.team-score{display:flex;align-items:center;justify-content:space-between;gap:9px;min-width:0;padding:8px 10px;border-radius:5px;font-size:clamp(9px,2.3vw,12px);letter-spacing:.7px}.team-left{border-left:3px solid #7da8d5}.team-right{border-right:3px solid #c77b63}.team-score strong{font-size:19px;color:#e7eddf;font-variant-numeric:tabular-nums}.team-left b{color:#a9c9ec}.team-right b{color:#e9ad91}.match-clock{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:4px 13px;border:1px solid #b6c68b99;border-radius:5px;min-width:76px;background:#080d0beF}.match-clock span{font-size:8px;letter-spacing:1.5px;color:#b9c99e}.match-clock strong{font-size:22px;line-height:1.15;letter-spacing:1px;font-variant-numeric:tabular-nums;color:#f4f3d8}.match-clock strong.urgent{color:#ff7568;text-shadow:0 0 12px #ff3b2b88;animation:timerPulse .8s infinite alternate}@keyframes timerPulse{to{opacity:.55}}.status-panel{position:absolute;top:64px;right:12px;font-size:11px;padding:7px 10px}@media(max-width:700px){.top{top:8px;left:7px;right:7px;gap:5px}.team-score{padding:7px 6px;gap:5px;letter-spacing:0}.team-score strong{font-size:16px}.match-clock{min-width:66px;padding:4px 8px}.match-clock strong{font-size:19px}.status-panel{top:55px;right:7px;font-size:9px;padding:6px 7px}}.mission-tag{position:absolute;left:12px;bottom:16px;padding:9px 12px;background:linear-gradient(90deg,#101aee,#101a99);border:1px solid #91a77a88;border-left:3px solid #b4d18b;border-radius:3px;color:#dce8d4;font-size:10px;letter-spacing:1.4px;font-weight:800;text-shadow:0 1px 3px #000;box-shadow:0 5px 18px #0005}.mission-tag span{color:#b4d18b;margin-right:7px}@media(max-width:700px){.mission-tag{bottom:160px;left:12px;font-size:9px;padding:7px 9px}}.hint{position:absolute;top:64px;left:12px;color:#d4dfd0;font-size:12px;text-shadow:0 2px 3px #000}.cross{position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%)}.cross:before,.cross:after{content:"";position:absolute;background:#fff;box-shadow:0 0 4px #000}.cross:before{width:2px;height:18px;left:8px}.cross:after{height:2px;width:18px;top:8px}#start{position:fixed;inset:0;background:linear-gradient(#08100bdc,#08100bf2);display:grid;place-items:center;z-index:5}#start .card{max-width:340px;margin:20px;text-align:center;background:#17231b;border:1px solid #687c60;border-radius:16px;padding:24px}h1{letter-spacing:3px;margin:0 0 8px;color:#c8f3a7}button{border:1px solid #8ca77b;background:#344c30;color:white;border-radius:10px;padding:12px 18px;font-weight:800;font-size:14px}#mobile{position:fixed;inset:0;pointer-events:none;display:none}.lookPad{position:absolute;right:0;top:78px;bottom:190px;width:58%;pointer-events:auto;touch-action:none;background:transparent;z-index:1}.stick{position:absolute;left:22px;bottom:24px;width:118px;height:118px;border:2px solid #ffffff66;border-radius:50%;background:#18251c88;pointer-events:auto;touch-action:none;z-index:2}.knob{position:absolute;left:35px;top:35px;width:44px;height:44px;border-radius:50%;background:#b8d6a899;border:1px solid #eaffd4}.action{position:absolute;right:22px;bottom:34px;z-index:3;pointer-events:auto;touch-action:none;min-width:70px;min-height:58px;background:#243a2bdc}.action.fire{right:105px;bottom:54px;background:#70352fe8}.action.jump{right:22px;bottom:112px;min-width:58px;min-height:48px}
 @media(pointer:coarse){#mobile{display:block}.hint{top:60px;max-width:65%}}
@@ -88,7 +88,7 @@ body:not(.in-match) #hud,body:not(.in-match) #mobile{display:none!important}body
 <div class="operator-caption"><span>SEU OPERADOR</span><strong id="operatorName">ASSALTO • BATALHÃO</strong></div>
 <div class="operator-shadow"></div>
 <div class="operator-hint">PERSONAGEM 3D</div>
-<div class="lobby-version">ELITE STRIKE <i>BUILD 1.6.0</i></div>
+<div class="lobby-version">ELITE STRIKE <i>BUILD 1.6.1</i></div>
 </section>
 <aside class="lobby-right">
 <div class="match-summary"><small>MODO SELECIONADO</small><strong id="lobbyModeName">BATALHA POR EQUIPES</strong><span id="lobbyMapName">COMUNIDADE • SETOR 01</span></div>
@@ -230,37 +230,58 @@ for(let i=0;i<12;i++){const x=(i%4)*4-6,z=Math.floor(i/4)*-5-2;box(x,.5,z,.8,1,.
 for(const side of [-1,1]){box(side*17.8,.06,0,.42,.12,42,0xaaa18b);for(let z=-18;z<=18;z+=6)box(side*17.45,.07,z,.12,.14,.12,0xd5c9a8)}for(let z=-20;z<=20;z+=5){box(0,.015,z,.16,.025,2.1,0xd8cba0)}for(const side of [-1,1])for(const z of [-15,-5,5,15]){const pole=box(side*15.9,2.2,z,.12,4.4,.12,0x343b35);box(side*15.65,4.35,z,.65,.09,.12,0x343b35);const lamp=new THREE.Mesh(new THREE.BoxGeometry(.32,.08,.22),new THREE.MeshBasicMaterial({color:0xffe2a0}));lamp.position.set(side*15.4,4.27,z);scene.add(lamp)}for(const [x,z,col] of [[-9,-4,0x604332],[8,-7,0x574334],[-12,12,0x5b4030],[12,12,0x503a30]]){box(x,1.05,z,.9,2.1,.08,col);box(x,2.18,z-.055,1.05,.12,.12,0x39372e);for(let y=.75;y<2.1;y+=.55)box(x,y,z-.06,.72,.035,.035,0x92785c)}
 // Soldier rig
 
-// BUILD 1.6.0 — modelos humanos GLB rigados por facção (licença MIT)
+// BUILD 1.6.1 — modelos humanos GLB rigados por facção (licença MIT)
+// BUILD 1.6.1 — soldado tático detalhado, carregado uma vez e clonado por operador
 const soldierLoader=new GLTFLoader();
-const soldierAssetURLs={
- BATALHÃO:'https://models.codelove.in/models/military-male-03.glb',
- TERRORISTAS:'https://models.codelove.in/models/military-male-02.glb'
-};
+const soldierModelURL='https://grab3d.com/dl/soldier-rigged/soldier-rigged.glb';
+let soldierModelPromise=null;
+function getSoldierModel(){
+ if(!soldierModelPromise){
+  soldierModelPromise=soldierLoader.loadAsync(soldierModelURL).catch(err=>{
+   soldierModelPromise=null;
+   throw err;
+  });
+ }
+ return soldierModelPromise;
+}
 function loadRiggedSoldier(root,faction){
  const requested=faction==='TERRORISTAS'?'TERRORISTAS':'BATALHÃO';
  root.userData.modelFaction=requested;
- soldierLoader.load(soldierAssetURLs[requested],gltf=>{
+ getSoldierModel().then(gltf=>{
   if(root.userData.modelFaction!==requested)return;
-  if(root.userData.rig){root.remove(root.userData.rig);root.userData.mixer?.stopAllAction();root.userData.rig=null;root.userData.mixer=null;}
+  if(root.userData.rig){
+   root.remove(root.userData.rig);
+   root.userData.mixer?.stopAllAction();
+   root.userData.rig=null;
+   root.userData.mixer=null;
+  }
   const rig=cloneSkeleton(gltf.scene);
   rig.name='ELITE_STRIKE_RIGGED_SOLDIER_'+requested;
   rig.traverse(o=>{
    if(!o.isMesh)return;
-   o.castShadow=true;o.receiveShadow=true;
+   o.castShadow=true;
+   o.receiveShadow=true;
+   o.frustumCulled=false;
    if(Array.isArray(o.material))o.material=o.material.map(m=>m.clone());
    else if(o.material)o.material=o.material.clone();
    const mats=Array.isArray(o.material)?o.material:[o.material];
-   for(const m of mats){if(m.color)m.color.multiplyScalar(requested==='TERRORISTAS'?.82:1.02);m.needsUpdate=true}
+   for(const m of mats){
+    if(m.color)m.color.multiplyScalar(requested==='TERRORISTAS'?.78:1.04);
+    m.needsUpdate=true;
+   }
   });
   const bounds=new THREE.Box3().setFromObject(rig);
   const size=bounds.getSize(new THREE.Vector3());
-  const scale=2.12/Math.max(.01,size.y);
+  const scale=2.08/Math.max(.01,size.y);
   rig.scale.setScalar(scale);
-  rig.position.set(-((bounds.min.x+bounds.max.x)*.5)*scale,-bounds.min.y*scale,-((bounds.min.z+bounds.max.z)*.5)*scale);
+  rig.position.set(
+   -((bounds.min.x+bounds.max.x)*.5)*scale,
+   -bounds.min.y*scale,
+   -((bounds.min.z+bounds.max.z)*.5)*scale
+  );
   root.userData.body.visible=false;
   root.add(rig);
-  // Mantém arma, clarão e lógica de disparo já conectados ao sistema atual
-  const body=root.userData.body, gun=root.userData.gun, flash=root.userData.flash, light=root.userData.muzzleLight;
+  const body=root.userData.body,gun=root.userData.gun,flash=root.userData.flash,light=root.userData.muzzleLight;
   body.remove(gun);body.remove(flash);body.remove(light);
   root.add(gun);root.add(flash);root.add(light);
   gun.position.set(.28,1.32,-.32);
@@ -268,17 +289,30 @@ function loadRiggedSoldier(root,faction){
   light.position.copy(flash.position);
   const mixer=new THREE.AnimationMixer(rig);
   const clips=gltf.animations||[];
-  const findClip=(terms)=>clips.find(c=>terms.some(t=>c.name.toLowerCase().includes(t)));
-  const idle=findClip(['idle','stand'])||clips[0];
-  const walk=findClip(['walk'])||idle;
-  const run=findClip(['run','sprint'])||walk;
-  const actions={idle:idle?mixer.clipAction(idle):null,walk:walk?mixer.clipAction(walk):null,run:run?mixer.clipAction(run):null};
+  const findClip=(term)=>clips.find(c=>c.name.toLowerCase().includes(term));
+  const walk=findClip('walk')||clips[0]||null;
+  const run=findClip('run')||walk;
+  const actions={idle:null,walk:walk?mixer.clipAction(walk):null,run:run?mixer.clipAction(run):null};
   let active=null;
-  const play=(name)=>{const next=actions[name]||actions.idle;if(!next||next===active)return;if(active)active.fadeOut(.18);next.reset().fadeIn(.18).play();active=next};
-  play('idle');
-  root.userData.rig=rig;root.userData.mixer=mixer;root.userData.rigActions=actions;
-  root.userData.updateModel=(dt,moving,sprinting)=>{mixer.update(dt);play(moving?(sprinting?'run':'walk'):'idle')};
- },undefined,err=>console.warn('Modelo 3D de soldado não carregou; mantendo modelo reserva.',err));
+  const play=(name)=>{
+   const next=actions[name];
+   if(!next){if(active){active.fadeOut(.16);active=null}return}
+   if(next===active)return;
+   if(active)active.fadeOut(.16);
+   next.reset().fadeIn(.16).play();
+   active=next;
+  };
+  root.userData.rig=rig;
+  root.userData.mixer=mixer;
+  root.userData.rigActions=actions;
+  root.userData.updateModel=(dt,moving,sprinting)=>{
+   mixer.update(dt);
+   play(moving?(sprinting?'run':'walk'):'idle');
+  };
+ }).catch(err=>{
+  console.error('Falha ao carregar o soldado GLB do ELITE STRIKE:',err);
+  root.userData.modelLoadFailed=true;
+ });
 }
 function soldier(color,isPlayer=false,skinIndex=0){const g=new THREE.Group();const body=new THREE.Group();g.add(body);const uniform=camoMaterial('#526b48',skinIndex,'BATALHÃO'),torso=new THREE.Mesh(new THREE.CapsuleGeometry(.31,.38,5,8),uniform);torso.scale.set(1.08,1,.78);torso.position.y=1.45;body.add(torso);const vest=new THREE.Mesh(new THREE.CapsuleGeometry(.34,.22,4,8),mat(0x303b30));vest.scale.set(1.08,.82,.78);vest.position.set(0,1.5,-.015);body.add(vest);const waist=new THREE.Mesh(new THREE.BoxGeometry(.48,.24,.34),mat(0x303b30));waist.position.set(0,1.08,0);body.add(waist);const gearMat=mat(0x252f29),trimMat=mat(0x69735a),bootMat=mat(0x202722);const chestRig=new THREE.Mesh(new THREE.CapsuleGeometry(.29,.12,4,8),mat(0x3b4737));chestRig.scale.set(1.05,.78,.76);chestRig.position.set(0,1.57,-.045);body.add(chestRig);for(let side=-1;side<=1;side++){const magPouch=new THREE.Mesh(new THREE.BoxGeometry(.145,.22,.14),trimMat);magPouch.position.set(side*.19,1.49,-.29);body.add(magPouch);const pouchFlap=new THREE.Mesh(new THREE.BoxGeometry(.15,.045,.15),gearMat);pouchFlap.position.set(side*.19,1.62,-.29);body.add(pouchFlap)}const belt=new THREE.Mesh(new THREE.BoxGeometry(.53,.11,.38),gearMat);belt.position.set(0,1.12,0);body.add(belt);const buckle=new THREE.Mesh(new THREE.BoxGeometry(.13,.1,.035),trimMat);buckle.position.set(0,1.12,-.205);body.add(buckle);for(const side of [-1,1]){const shoulder=new THREE.Mesh(new THREE.SphereGeometry(1,7,5),gearMat);shoulder.scale.set(.145,.16,.15);shoulder.position.set(side*.34,1.76,-.015);body.add(shoulder);const pouch=new THREE.Mesh(new THREE.BoxGeometry(.19,.2,.12),trimMat);pouch.position.set(side*.22,1.34,-.245);body.add(pouch);}const pack=new THREE.Mesh(new THREE.BoxGeometry(.48,.62,.2),gearMat);pack.position.set(0,1.48,.27);body.add(pack);for(let y=1.3;y<=1.65;y+=.22){const strap=new THREE.Mesh(new THREE.BoxGeometry(.5,.045,.025),trimMat);strap.position.set(0,y,-.235);body.add(strap)}
 const neck=new THREE.Mesh(new THREE.CylinderGeometry(.105,.12,.16,7),mat(0x9b765c));neck.position.y=1.96;body.add(neck);
