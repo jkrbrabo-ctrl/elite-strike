@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.3.9</title>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101611"><title>ELITE STRIKE • BUILD 1.4.0</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101611;color:#edf1e8;font:14px system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none}.top{position:absolute;top:10px;left:12px;right:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.panel{background:#101a; border:1px solid #71816c88;border-radius:10px;padding:8px 12px;text-shadow:0 1px 3px #000}.health{color:#9cff8b;font-weight:800}.team-score{display:flex;align-items:center;justify-content:space-between;gap:9px;min-width:0;padding:8px 10px;border-radius:5px;font-size:clamp(9px,2.3vw,12px);letter-spacing:.7px}.team-left{border-left:3px solid #7da8d5}.team-right{border-right:3px solid #c77b63}.team-score strong{font-size:19px;color:#e7eddf;font-variant-numeric:tabular-nums}.team-left b{color:#a9c9ec}.team-right b{color:#e9ad91}.match-clock{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:4px 13px;border:1px solid #b6c68b99;border-radius:5px;min-width:76px;background:#080d0beF}.match-clock span{font-size:8px;letter-spacing:1.5px;color:#b9c99e}.match-clock strong{font-size:22px;line-height:1.15;letter-spacing:1px;font-variant-numeric:tabular-nums;color:#f4f3d8}.match-clock strong.urgent{color:#ff7568;text-shadow:0 0 12px #ff3b2b88;animation:timerPulse .8s infinite alternate}@keyframes timerPulse{to{opacity:.55}}.status-panel{position:absolute;top:64px;right:12px;font-size:11px;padding:7px 10px}@media(max-width:700px){.top{top:8px;left:7px;right:7px;gap:5px}.team-score{padding:7px 6px;gap:5px;letter-spacing:0}.team-score strong{font-size:16px}.match-clock{min-width:66px;padding:4px 8px}.match-clock strong{font-size:19px}.status-panel{top:55px;right:7px;font-size:9px;padding:6px 7px}}.mission-tag{position:absolute;left:12px;bottom:16px;padding:9px 12px;background:linear-gradient(90deg,#101aee,#101a99);border:1px solid #91a77a88;border-left:3px solid #b4d18b;border-radius:3px;color:#dce8d4;font-size:10px;letter-spacing:1.4px;font-weight:800;text-shadow:0 1px 3px #000;box-shadow:0 5px 18px #0005}.mission-tag span{color:#b4d18b;margin-right:7px}@media(max-width:700px){.mission-tag{bottom:160px;left:12px;font-size:9px;padding:7px 9px}}.hint{position:absolute;top:64px;left:12px;color:#d4dfd0;font-size:12px;text-shadow:0 2px 3px #000}.cross{position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%)}.cross:before,.cross:after{content:"";position:absolute;background:#fff;box-shadow:0 0 4px #000}.cross:before{width:2px;height:18px;left:8px}.cross:after{height:2px;width:18px;top:8px}#start{position:fixed;inset:0;background:linear-gradient(#08100bdc,#08100bf2);display:grid;place-items:center;z-index:5}#start .card{max-width:340px;margin:20px;text-align:center;background:#17231b;border:1px solid #687c60;border-radius:16px;padding:24px}h1{letter-spacing:3px;margin:0 0 8px;color:#c8f3a7}button{border:1px solid #8ca77b;background:#344c30;color:white;border-radius:10px;padding:12px 18px;font-weight:800;font-size:14px}#mobile{position:fixed;inset:0;pointer-events:none;display:none}.lookPad{position:absolute;right:0;top:78px;bottom:190px;width:58%;pointer-events:auto;touch-action:none;background:transparent;z-index:1}.stick{position:absolute;left:22px;bottom:24px;width:118px;height:118px;border:2px solid #ffffff66;border-radius:50%;background:#18251c88;pointer-events:auto;touch-action:none;z-index:2}.knob{position:absolute;left:35px;top:35px;width:44px;height:44px;border-radius:50%;background:#b8d6a899;border:1px solid #eaffd4}.action{position:absolute;right:22px;bottom:34px;z-index:3;pointer-events:auto;touch-action:none;min-width:70px;min-height:58px;background:#243a2bdc}.action.fire{right:105px;bottom:54px;background:#70352fe8}.action.jump{right:22px;bottom:112px;min-width:58px;min-height:48px}
 @media(pointer:coarse){#mobile{display:block}.hint{top:60px;max-width:65%}}
@@ -69,21 +69,23 @@
 <div id="rotateNotice"><div class="rotate-card"><span class="rotate-symbol">↻</span><strong>GIRE O CELULAR</strong>O ELITE STRIKE foi feito para jogar na horizontal. Vire o aparelho para continuar.</div></div>
 <div id="mobile"><div class="lookPad" id="lookPad" aria-label="Controle da mira"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="action fire" id="fire" aria-label="Atirar"><span class="hud-icon">✹</span><small>ATIRAR</small></button><button class="action jump" id="jump" aria-label="Pular"><span class="hud-icon">⬆</span><small>PULAR</small></button><button class="action" id="crouch" aria-label="Agachar"><span class="hud-icon">▤</span><small>AGACHAR</small></button><button class="action" id="reload" style="right:105px;bottom:126px" aria-label="Recarregar"><span class="hud-icon">↻</span><small>RECARREGAR</small></button><button class="action sprint" id="sprint" aria-label="Correr"><span class="hud-icon">»</span><small>CORRER</small></button></div>
 <div id="roundEnd" style="display:none;position:fixed;inset:0;z-index:8;background:#071009dd;place-items:center;text-align:center"><div style="background:#17231b;border:1px solid #829777;border-radius:16px;padding:26px;min-width:260px"><h1 id="roundTitle">FIM DE JOGO</h1><p id="roundText">Resultado da partida</p><button onclick="location.reload()">JOGAR NOVAMENTE</button></div></div>
-<div id="loadingScreen"><div class="loading-card"><div class="loading-art"><div class="art-kicker">OPERAÇÃO ESPECIAL • BRASIL</div><div class="art-title">ELITE<br>STRIKE</div><div class="art-sub">COMUNIDADE • SETOR DE COMBATE</div><div class="art-silhouette">▰　◢　▰</div></div><div class="menu-kicker">INICIALIZANDO OPERAÇÃO</div><div class="loading-logo">ELITE STRIKE</div><div class="loading-caption" id="loadingCaption">CARREGANDO RECURSOS DO JOGO...</div><div class="loading-track"><div id="loadingBar"></div></div><div class="loading-meta"><span id="loadingPercent">0%</span><span>BUILD 1.3.8</span></div></div></div>
+<div id="loadingScreen"><div class="loading-card"><div class="loading-art"><div class="art-kicker">OPERAÇÃO ESPECIAL • BRASIL</div><div class="art-title">ELITE<br>STRIKE</div><div class="art-sub">COMUNIDADE • SETOR DE COMBATE</div><div class="art-silhouette">▰　◢　▰</div></div><div class="menu-kicker">INICIALIZANDO OPERAÇÃO</div><div class="loading-logo">ELITE STRIKE</div><div class="loading-caption" id="loadingCaption">CARREGANDO RECURSOS DO JOGO...</div><div class="loading-track"><div id="loadingBar"></div></div><div class="loading-meta"><span id="loadingPercent">0%</span><span>BUILD 1.4.0</span></div></div></div>
 <div id="start" class="lobby">
 <aside class="lobby-rail">
 <div class="rail-brand">ES<span>•</span></div>
+<div class="rail-section">MENU PRINCIPAL</div>
 <button class="rail-btn selected" id="lobbyProfile" title="Personagem"><b>♟</b><small>OPERADOR</small></button>
 <button class="rail-btn" id="openStore" title="Loja"><b>▣</b><small>LOJA</small></button>
 <button class="rail-btn" id="openVault" title="Cofre"><b>▤</b><small>COFRE</small></button>
 <div class="rail-bottom">ELITE<br>STRIKE</div>
 </aside>
+<div class="lobby-topbar"><div class="lobby-top-brand">ELITE <b>STRIKE</b></div><div class="lobby-top-status"><span>●</span> SERVIDOR ONLINE</div><div class="lobby-top-icons"><i>◈</i><i>✉</i><i>⚙</i></div></div>
 <section class="lobby-center">
 <div class="lobby-topline"><span>OPERAÇÃO ESPECIAL • BRASIL</span><span class="online-mark">● ONLINE</span></div>
 <div class="operator-caption"><span>SEU OPERADOR</span><strong id="operatorName">ASSALTO • BATALHÃO</strong></div>
 <div class="operator-shadow"></div>
 <div class="operator-hint">PERSONAGEM 3D</div>
-<div class="lobby-version">ELITE STRIKE <i>BUILD 1.3.9</i></div>
+<div class="lobby-version">ELITE STRIKE <i>BUILD 1.4.0</i></div>
 </section>
 <aside class="lobby-right">
 <div class="right-heading"><span>PAINEL DE MISSÃO</span><b>01 / 03</b></div>
@@ -99,6 +101,7 @@
 <button id="go" class="menu-start">▶ &nbsp; COMEÇAR</button>
 <div class="menu-footer"><span>ELITE STRIKE</span><span>PRONTO PARA COMBATE</span></div>
 </aside>
+<aside class="lobby-quick"><div class="quick-label">ATIVIDADES</div><button title="Missões">▤</button><button title="Eventos">✦</button><button title="Classificação">♜</button><button title="Conquistas">♛</button></aside>
 <div class="lobby-modal" id="lobbyModal" aria-hidden="true"><div class="lobby-modal-card"><button class="modal-close" id="closeLobbyModal">✕</button><div class="modal-kicker" id="modalKicker">PERSONALIZAÇÃO</div><h2 id="modalTitle">LOJA DE SKINS</h2><p id="modalText">Novas aparências para seu operador.</p><div class="modal-items" id="modalItems"></div></div></div>
 </div>
 <script type="module">
@@ -306,7 +309,7 @@ const bootLoader=document.querySelector('#loadingScreen'),bootBar=document.query
 }
 </style>
 <style>
-/* BUILD 1.3.9 — LOBBY COM OPERADOR 3D */
+/* BUILD 1.4.0 — LOBBY COM OPERADOR 3D */
 #start.lobby{position:fixed;inset:0;z-index:12;display:grid;grid-template-columns:92px minmax(0,1fr) minmax(300px,365px);padding:0;background:linear-gradient(90deg,#07100df2,#0a140cc9 18%,#101a0c22 55%,#08100df0 100%);overflow:hidden}
 #start.lobby:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 52% 45%,#a5bb7540,transparent 35%),linear-gradient(0deg,#050906bb,transparent 45%),repeating-linear-gradient(90deg,transparent 0 80px,#d4e4c20a 81px 82px);pointer-events:none}
 #start.lobby:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#050b08 0%,transparent 19%,transparent 70%,#050b08 100%);pointer-events:none}
@@ -341,4 +344,87 @@ const bootLoader=document.querySelector('#loadingScreen'),bootBar=document.query
 @media(max-width:850px){#start.lobby{grid-template-columns:68px minmax(0,1fr) minmax(260px,310px)}.lobby-rail{padding:12px 5px}.rail-btn{width:56px;height:62px}.lobby-center{padding:14px}.operator-caption{top:12%;left:5%}}
 @media(max-width:620px){#start.lobby{grid-template-columns:58px minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}.lobby-rail{grid-row:1/3;gap:9px;padding:9px 3px}.rail-brand{font-size:22px;margin:4px 0 10px}.rail-btn{width:50px;height:56px}.rail-btn b{font-size:21px}.rail-btn small{font-size:7px}.lobby-center{min-height:34vh;padding:12px 10px}.lobby-right{grid-column:2;max-height:57vh;padding:12px 14px;border-left:0;border-top:1px solid #b5ce9b55}.lobby-right .menu-label{margin:9px 0 5px}.lobby-right .menu-option{padding:8px 6px;font-size:8px}.lobby-right .menu-start{padding:12px}.operator-caption{top:14%;left:8%}.operator-shadow{width:55vw}.modal-items{grid-template-columns:1fr 1fr}.lobby-modal-card{padding:20px}}
 @media(max-width:390px){.modal-items{grid-template-columns:1fr}.lobby-center{min-height:28vh}.lobby-right{max-height:62vh}}
+</style>
+
+<style>
+/* BUILD 1.4.0 — LOBBY IMERSIVO INSPIRADO EM SHOOTERS MOBILE */
+#start.lobby{grid-template-columns:174px minmax(0,1fr) 326px;background:#080d12;isolation:isolate}
+#start.lobby:before{background:
+radial-gradient(ellipse at 57% 43%,#6ba2b955 0,transparent 32%),
+linear-gradient(180deg,#07121a55,#03070bb0),
+repeating-linear-gradient(90deg,transparent 0 95px,#b4d9e90a 96px 97px),
+linear-gradient(110deg,#101b24,#26333a 45%,#111a22)}
+#start.lobby:after{background:linear-gradient(90deg,#080d12 0%,transparent 22%,transparent 72%,#080d12 100%)}
+.lobby-rail{padding:78px 12px 18px;gap:10px;background:linear-gradient(180deg,#111b24f7,#080d13f7);border-right:1px solid #8eafc04a;align-items:stretch}
+.rail-brand{position:absolute;top:18px;left:22px;font-size:27px;margin:0;color:#f6f7f8}
+.rail-section{font-size:8px;letter-spacing:2px;color:#8499a5;padding:8px 8px 3px}
+.rail-btn{width:100%;height:49px;flex-direction:row;justify-content:flex-start;gap:13px;padding:0 13px;border:0;border-left:3px solid transparent;border-radius:2px;background:transparent;color:#c6d0d5;text-align:left}
+.rail-btn b{font-size:18px;width:20px}
+.rail-btn small{font-size:10px;letter-spacing:1.2px;font-weight:800}
+.rail-btn.selected,.rail-btn:active{background:linear-gradient(90deg,#b5d5e52b,transparent);border-left-color:#f4b844;box-shadow:none;color:#fff}
+.rail-bottom{font-size:9px;color:#9aaab2;letter-spacing:2px}
+.lobby-topbar{position:absolute;z-index:3;top:0;left:174px;right:326px;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;border-bottom:1px solid #b8d5e51c;background:linear-gradient(180deg,#050a0fc9,transparent);pointer-events:none}
+.lobby-top-brand{font-size:14px;font-weight:1000;letter-spacing:3px;color:#f2f5f7}.lobby-top-brand b{color:#f3bd4c}
+.lobby-top-status{font-size:9px;letter-spacing:1.6px;color:#b8c7ce}.lobby-top-status span{color:#80dc9b;margin-right:6px}
+.lobby-top-icons{display:flex;gap:17px;color:#d7e0e4;font-size:17px}.lobby-top-icons i{font-style:normal}
+.lobby-center{padding:76px 28px 25px;background:radial-gradient(ellipse at 55% 48%,#93c4d21b,transparent 40%)}
+.lobby-topline{font-size:8px;color:#9eb0ba}
+.operator-caption{top:18%;left:6%}
+.operator-caption span{color:#b7c7ce}
+.operator-caption strong{color:#fff;text-shadow:0 2px 12px #000}
+.operator-shadow{bottom:11%;background:#000b;filter:blur(20px)}
+.operator-hint{color:#d4e0e5;font-size:9px}
+.lobby-version{color:#d5e0e5}
+.lobby-right{padding:72px 19px 20px;background:linear-gradient(180deg,#111b24f5,#080e14f8);border-left:1px solid #9cb8c52e}
+.right-heading{font-size:10px;color:#f4f6f7}
+.lobby-right .menu-label{color:#9fb4bf}
+.lobby-right .menu-option{background:#1c2a34;border-color:#526775;color:#e1e8eb}
+.lobby-right .menu-option.selected{background:linear-gradient(110deg,#8eafbd,#496575);border-color:#e0edf1;color:#081117}
+.lobby-right .menu-start{background:linear-gradient(100deg,#ffd36b,#e99a22);border:1px solid #fff0bd;color:#201506;font-size:15px;box-shadow:0 5px 24px #f1ad3638}
+.lobby-quick{position:absolute;z-index:2;right:342px;top:45%;display:flex;flex-direction:column;gap:9px;align-items:center}
+.quick-label{writing-mode:vertical-rl;font-size:7px;letter-spacing:2px;color:#c1d0d6;margin-bottom:3px}
+.lobby-quick button{width:38px;height:38px;padding:0;border-radius:3px;background:#101b24d9;border:1px solid #a9c3ce66;color:#e8f0f3;font-size:17px}
+.lobby-quick button:active{background:#dca43b;color:#111}
+.lobby-modal-card{background:#111d26;border-color:#a4c0cc}
+.skin-tile{background:#1b2a34;border-color:#526c7a}
+@media(max-width:850px){
+ #start.lobby{grid-template-columns:132px minmax(0,1fr) 280px}
+ .lobby-rail{padding:68px 8px 12px}
+ .lobby-topbar{left:132px;right:280px;padding:0 14px}
+ .lobby-quick{right:290px}
+}
+@media(max-width:620px){
+ #start.lobby{grid-template-columns:58px minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+ .lobby-rail{padding:64px 4px 8px;gap:7px}
+ .rail-brand{left:12px;top:17px;font-size:21px}
+ .rail-section{display:none}
+ .rail-btn{height:48px;justify-content:center;padding:4px;flex-direction:column;gap:2px}
+ .rail-btn b{font-size:17px;width:auto}
+ .rail-btn small{font-size:6px;letter-spacing:.4px}
+ .lobby-topbar{left:58px;right:0;height:46px;padding:0 10px}
+ .lobby-top-brand{font-size:10px;letter-spacing:1.5px}
+ .lobby-top-status{font-size:7px}
+ .lobby-top-icons{gap:9px;font-size:13px}
+ .lobby-center{min-height:35vh;padding:52px 10px 12px}
+ .lobby-right{grid-column:2;max-height:58vh;padding:12px 13px;border-top:1px solid #9cb8c52e}
+ .lobby-quick{right:8px;top:23%;gap:5px}
+ .lobby-quick button{width:30px;height:30px;font-size:13px}
+ .quick-label{display:none}
+ .operator-caption{top:18%;left:7%}
+ .operator-hint{bottom:5%}
+}
+@media(max-height:500px) and (orientation:landscape){
+ #start.lobby{grid-template-columns:145px minmax(0,1fr) 300px}
+ .lobby-rail{padding:60px 9px 9px;gap:5px}
+ .rail-btn{height:39px}
+ .lobby-topbar{left:145px;right:300px;height:45px}
+ .lobby-center{padding-top:55px}
+ .lobby-right{padding:56px 14px 10px}
+ .lobby-right .menu-label{margin:7px 0 4px}
+ .lobby-right .menu-option{padding:7px 6px;font-size:8px}
+ .lobby-right .menu-info{margin:7px 0;font-size:9px}
+ .lobby-right .menu-start{padding:10px}
+ .lobby-right .menu-footer{margin-top:8px}
+ .lobby-quick{right:310px}
+}
 </style>
